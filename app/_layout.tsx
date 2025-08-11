@@ -25,32 +25,32 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen 
-            name="login" 
-            options={{ 
+          <Stack.Screen
+            name="login"
+            options={{
               title: "Sign In",
               headerShown: false,
-              presentation: "modal"
-            }} 
+              presentation: "modal",
+            }}
           />
-          <Stack.Screen 
-            name="signup" 
-            options={{ 
+          <Stack.Screen
+            name="signup"
+            options={{
               title: "Sign Up",
               headerShown: false,
-              presentation: "modal"
-            }} 
+              presentation: "modal",
+            }}
           />
-          <Stack.Screen 
-            name="story-workshop" 
-            options={{ 
-              title: "Story Workshop",
-              headerShown: false,
-              presentation: "card"
-            }} 
+          <Stack.Screen
+            name="(modals)/new-story"
+            options={{
+              headerShown: true,
+              presentation: "fullScreenModal",
+              animation: "slide_from_bottom",
+            }}
           />
           <Stack.Screen name="+not-found" />
         </Stack>

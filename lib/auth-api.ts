@@ -4,6 +4,7 @@
  */
 
 const API_BASE_URL = "https://api.story-time.mikeboe.com";
+// const API_BASE_URL = "http://localhost:3000";
 const AUTH_API_BASE = `${API_BASE_URL}/auth`;
 
 import { type User } from "@/types/user";

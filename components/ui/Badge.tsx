@@ -3,6 +3,7 @@ import { View, StyleSheet, ViewStyle } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 interface BadgeProps {
   children?: React.ReactNode;
@@ -19,42 +20,50 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   const theme = useColorScheme() ?? 'light';
   
+  // Use themed colors with explicit light/dark variants
+  const primaryColor = useThemeColor({ light: '#7C3AED', dark: '#A855F7' }, 'tint');
+  const accentColor = useColorScheme() === 'dark' ? '#FDBA74' : '#FB923C';
+  const successColor = useColorScheme() === 'dark' ? '#10B981' : '#059669';
+  const warningColor = useColorScheme() === 'dark' ? '#F59E0B' : '#D97706';
+  const secondaryColor = useColorScheme() === 'dark' ? '#2A2A3E' : '#F3F0FF';
+  const textColorDefault = useThemeColor({}, 'text');
+  
   const getBadgeStyle = () => {
     switch (variant) {
       case 'primary':
         return {
-          backgroundColor: Colors[theme].tint,
-          borderColor: Colors[theme].tint,
+          backgroundColor: primaryColor,
+          borderColor: primaryColor,
           borderWidth: 1,
         };
       case 'outline':
         return {
           backgroundColor: 'transparent',
-          borderColor: Colors[theme].tint,
+          borderColor: primaryColor,
           borderWidth: 1,
         };
       case 'success':
         return {
-          backgroundColor: '#22c55e',
-          borderColor: '#16a34a',
+          backgroundColor: successColor,
+          borderColor: successColor,
           borderWidth: 1,
         };
       case 'accent':
         return {
-          backgroundColor: '#3b82f6',
-          borderColor: '#2563eb',
+          backgroundColor: accentColor,
+          borderColor: accentColor,
           borderWidth: 1,
         };
       case 'secondary':
         return {
-          backgroundColor: Colors[theme].tabIconDefault,
-          borderColor: Colors[theme].tabIconDefault,
+          backgroundColor: secondaryColor,
+          borderColor: primaryColor,
           borderWidth: 1,
         };
       default:
         return {
-          backgroundColor: Colors[theme].tint,
-          borderColor: Colors[theme].tint,
+          backgroundColor: primaryColor,
+          borderColor: primaryColor,
           borderWidth: 1,
         };
     }
@@ -62,7 +71,10 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const getTextColor = () => {
     if (variant === 'outline') {
-      return Colors[theme].tint;
+      return primaryColor;
+    }
+    if (variant === 'secondary') {
+      return primaryColor;
     }
     return '#ffffff';
   };

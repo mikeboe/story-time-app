@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Card, CardContent } from '../ui/Card';
-import { ThemedText } from '../ThemedText';
+import React from "react";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Card, CardContent } from "../ui/Card";
+import { ThemedText } from "../ThemedText";
 
 interface QuickActionCardProps {
   icon: React.ReactNode;
@@ -22,16 +22,19 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
     <TouchableOpacity onPress={onPress} style={styles.touchable}>
       <Card>
         <CardContent style={styles.content}>
-          <View style={[styles.iconContainer, { backgroundColor: gradientColors[0] }]}>
+          <View
+            style={[
+              styles.iconContainer,
+              { backgroundColor: gradientColors[0] },
+            ]}
+          >
             {icon}
           </View>
           <View style={styles.textContainer}>
             <ThemedText type="defaultSemiBold" style={styles.title}>
               {title}
             </ThemedText>
-            <ThemedText style={styles.description}>
-              {description}
-            </ThemedText>
+            <ThemedText style={styles.description}>{description}</ThemedText>
           </View>
         </CardContent>
       </Card>
@@ -42,17 +45,21 @@ export const QuickActionCard: React.FC<QuickActionCardProps> = ({
 const styles = StyleSheet.create({
   touchable: {
     flex: 1,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    overflow: "hidden",
   },
   content: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   iconContainer: {
     width: 48,
     height: 48,
     borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
   textContainer: {

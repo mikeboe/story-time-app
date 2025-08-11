@@ -17,7 +17,6 @@ import { CTACard } from "@/components/dashboard/CTACard";
 import { Button } from "@/components/ui/Button";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "@/context/AuthContext";
-import NewStoryWizard from "@/components/story/new-story-wizard";
 
 const recentStories = [
   {
@@ -57,27 +56,13 @@ const stats = {
 export default function HomeScreen() {
   const { user } = useAuth();
   const router = useRouter();
-  const [wizardVisible, setWizardVisible] = useState(false);
 
   const handleCreateNewStory = () => {
-    setWizardVisible(true);
-  };
-
-  const handleWizardComplete = (storyData: any) => {
-    setWizardVisible(false);
-    // Navigate to the story workshop with the created story
-    router.push({
-      pathname: '/story-workshop',
-      params: { story: JSON.stringify(storyData) }
-    });
-  };
-
-  const handleWizardClose = () => {
-    setWizardVisible(false);
+    router.push("/(modals)/new-story");
   };
 
   const handleViewLibrary = () => {
-    console.log("Navigate to library");
+    router.push("/(tabs)/stories");
   };
 
   const handleViewPreferences = () => {
@@ -85,11 +70,14 @@ export default function HomeScreen() {
   };
 
   const handleViewAllStories = () => {
-    console.log("Navigate to all stories");
+    router.push("/(tabs)/stories");
   };
 
   const handleStoryPress = (storyId: number) => {
-    console.log("Navigate to story:", storyId);
+    router.push({
+      pathname: "/(tabs)/stories/[id]" as any,
+      params: { id: storyId.toString() },
+    });
   };
 
   const handlePlayStory = (storyId: number) => {
@@ -223,12 +211,6 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* New Story Wizard Modal */}
-      <NewStoryWizard
-        visible={wizardVisible}
-        onComplete={handleWizardComplete}
-        onClose={handleWizardClose}
-      />
     </ThemedView>
   );
 }
@@ -246,6 +228,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     marginBottom: 32,
+    marginTop: 64,
     paddingHorizontal: 16,
   },
   welcomeTitle: {
@@ -264,7 +247,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   quickActionsGrid: {
-    flexDirection: "row",
+    flexDirection: "column",
     gap: 12,
     marginBottom: 12,
   },
